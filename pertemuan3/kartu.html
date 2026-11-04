@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="kartu.css">
+    <title>Kartu Digital</title>
+</head>
+<body>
+
+    <main class="halaman">
+
+        <article class="kartu-digital" id="kartu">
+
+            <!-- Efek kilau (tidak ikut terfoto saat diunduh) -->
+            <span class="kilau" aria-hidden="true" data-html2canvas-ignore="true"></span>
+
+            <!-- ===== Header ===== -->
+            <header class="kartu-header">
+                <div class="logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2v3.6c0 1.7 3.1 3.2 7 3.2s7-1.5 7-3.2v-3.6l-7 3.8-7-3.8z"></path>
+                    </svg>
+                </div>
+                <div class="judul">
+                    <span class="judul-utama">KARTU DIGITAL</span>
+                    <span class="judul-kecil">Pendataan Mahasiswa</span>
+                </div>
+                <span class="status" id="out-status">Terdaftar</span>
+                <button type="button" id="tombol-unduh" class="btn-unduh" title="Unduh kartu (PNG)" aria-label="Unduh kartu sebagai gambar" data-html2canvas-ignore="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"></path>
+                    </svg>
+                </button>
+            </header>
+
+            <!-- ===== Profil ===== -->
+            <section class="profil">
+                <div class="avatar" id="out-inisial">?</div>
+                <div class="profil-teks">
+                    <span class="label">Nama:</span>
+                    <h1 id="out-nama">-</h1>
+                    <span class="id-kartu" id="out-id">KD-0000000</span>
+                </div>
+            </section>
+
+            <!-- ===== Daftar informasi ===== -->
+            <section class="daftar-info">
+
+                <div class="baris">
+                    <span class="ikon-baris" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"></path></svg>
+                    </span>
+                    <div class="isi-baris">
+                        <span class="label">Tlpn:</span>
+                        <span class="nilai" id="out-hp">-</span>
+                    </div>
+                </div>
+
+                <div class="baris">
+                    <span class="ikon-baris" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"></path></svg>
+                    </span>
+                    <div class="isi-baris">
+                        <span class="label">Email:</span>
+                        <span class="nilai" id="out-email">-</span>
+                    </div>
+                </div>
+
+                <div class="baris">
+                    <span class="ikon-baris" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m9.4 16.6-4.6-4.6 4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path></svg>
+                    </span>
+                    <div class="isi-baris">
+                        <span class="label">Arah Coding:</span>
+                        <div class="chip-wadah" id="out-arah"><span class="nilai">-</span></div>
+                    </div>
+                </div>
+
+                <div class="baris">
+                    <span class="ikon-baris" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"></path></svg>
+                    </span>
+                    <div class="isi-baris">
+                        <span class="label">Prodi:</span>
+                        <span class="lencana" id="out-prodi">-</span>
+                    </div>
+                </div>
+
+                <div class="baris">
+                    <span class="ikon-baris" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path></svg>
+                    </span>
+                    <div class="isi-baris">
+                        <span class="label">Pesan:</span>
+                        <span class="nilai pesan" id="out-pesan">-</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ===== Footer ===== -->
+            <footer class="kartu-footer">
+                <div class="barcode" id="barcode" aria-hidden="true"></div>>
+                <span class="tanggal" id="out-tanggal">-</span>
+            </footer>
+        </article>
+
+        <!-- ===== Tombol aksi ===== -->
+        <div class="aksi-kartu">
+            <button type="button" id="tombol-cetak" class="btn btn-utama">Cetak</button>
+            <button type="button" id="tombol-salin" class="btn btn-abu">Salin Data</button>
+            <a href="index.html" class="btn btn-garis">&larr; Isi Lagi</a>
+        </div>
+        <p class="info-salin" id="info-salin" aria-live="polite"></p>
+
+    </main>
+
+    <!-- Pustaka untuk membuat gambar kartu -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        // ===== Baca data dari form lewat alamat (URL) =====
+        const data = new URLSearchParams(window.location.search);
+
+        const daftarProdi = {
+            si: "Sistem Informasi",
+            ti: "Teknik Informatika",
+            bd: "Bisnis Digital"
+        };
+
+        const daftarArah = {
+            website: "Website",
+            gamedev: "Game Development",
+            cyber: "Cybersecurity"
+        };
+
+        const nama   = (data.get("nama") || "").trim();
+        const email  = (data.get("email") || "").trim();
+        const kode   = data.get("kode_negara") || "";
+        const noHp   = (data.get("hp") || "").replace(/^0+/, "");
+        const prodi  = daftarProdi[data.get("prodi")] || "";
+        const arah   = data.getAll("arah[]").map(k => daftarArah[k] || k);
+        const pesan  = (data.get("pesan") || "").trim();
+        const hpLengkap = noHp ? kode + noHp : "";
+
+        // ===== ID kartu (tetap sama untuk data yang sama) =====
+        function buatId(teks) {
+            let h = 0;
+            for (const c of teks) {
+                h = (h * 31 + c.charCodeAt(0)) >>> 0;
+            }
+            return "KD-" + h.toString(36).toUpperCase().padStart(7, "0");
+        }
+
+        // ===== Isi kartu (textContent = aman dari kode berbahaya) =====
+        const isi = (id, teks) => {
+            document.getElementById(id).textContent = teks || "-";
+        };
+
+        isi("out-nama", nama);
+        isi("out-hp", hpLengkap);
+        isi("out-email", email);
+        isi("out-prodi", prodi);
+        isi("out-pesan", pesan);
+        isi("out-inisial", nama ? nama.charAt(0).toUpperCase() : "?");
+        isi("out-id", nama ? buatId(nama + email + hpLengkap) : "KD-0000000");
+                // Barcode dibuat dari ID kartu (batang berbeda untuk tiap data)
+        const barcode = document.getElementById("barcode");
+        let benih = 0;
+        for (const c of document.getElementById("out-id").textContent) {
+            benih = (benih * 31 + c.charCodeAt(0)) >>> 0;
+        }
+        for (let i = 0; i < 48; i++) {
+            benih = (benih * 1664525 + 1013904223) >>> 0;
+            const batang = document.createElement("span");
+            batang.style.flex = String(1 + (benih % 3));
+            batang.style.background = i % 2 === 0 ? "#333" : "transparent";
+            barcode.appendChild(batang);
+        }
+
+        // Chip arah coding
+        const wadahArah = document.getElementById("out-arah");
+        if (arah.length) {
+            wadahArah.textContent = "";
+            arah.forEach((teks, i) => {
+                const chip = document.createElement("span");
+                chip.className = "chip";
+                chip.textContent = teks;
+                chip.style.animationDelay = (0.5 + i * 0.12) + "s";
+                wadahArah.appendChild(chip);
+            });
+        }
+
+        // Tanggal dibuat
+        const sekarang = new Date();
+        isi("out-tanggal", "Dibuat: " + sekarang.toLocaleDateString("id-ID", {
+            day: "numeric", month: "long", year: "numeric"
+        }) + ", " + sekarang.toLocaleTimeString("id-ID", {
+            hour: "2-digit", minute: "2-digit"
+        }));
+
+        // Status kalau halaman dibuka tanpa data
+        if (!nama) {
+            const status = document.getElementById("out-status");
+            status.textContent = "Belum ada data";
+            status.classList.add("kosong");
+        }
+
+        // Info di bawah tombol (dipakai Salin dan Unduh)
+        const info = document.getElementById("info-salin");
+        const tampilkanInfo = (teks, error) => {
+            info.textContent = teks;
+            info.classList.toggle("error", !!error);
+            setTimeout(() => (info.textContent = ""), 3000);
+        };
+
+        // ===== Tombol Cetak =====
+        document.getElementById("tombol-cetak").addEventListener("click", () => window.print());
+
+        // ===== Tombol Salin Data =====
+        document.getElementById("tombol-salin").addEventListener("click", () => {
+            const teks =
+                "Nama: " + (nama || "-") + "\n" +
+                "Tlpn: " + (hpLengkap || "-") + "\n" +
+                "Email: " + (email || "-") + "\n" +
+                "Arah Coding: " + (arah.length ? arah.join(", ") : "-") + "\n" +
+                "Prodi: " + (prodi || "-");
+
+            const berhasil = () => tampilkanInfo("Data berhasil disalin!", false);
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(teks).then(berhasil);
+            } else {
+                // Cadangan kalau dibuka lewat file:///
+                const t = document.createElement("textarea");
+                t.value = teks;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand("copy");
+                t.remove();
+                berhasil();
+            }
+        });
+
+        // ===== Tombol Unduh Kartu (PNG) =====
+        document.getElementById("tombol-unduh").addEventListener("click", function () {
+            if (typeof html2canvas === "undefined") {
+                tampilkanInfo("Pustaka unduh gagal dimuat. Periksa koneksi internet.", true);
+                return;
+            }
+
+            const tombol = this;
+            tombol.classList.add("loading");
+
+            html2canvas(document.getElementById("kartu"), {
+                scale: 2,
+                backgroundColor: null,
+                onclone: (dokumen) => {
+                    // Matikan animasi pada salinan supaya hasil gambar utuh
+                    dokumen.getElementById("kartu").classList.add("sedang-unduh");
+                }
+            }).then((canvas) => {
+                const tautan = document.createElement("a");
+                const namaFile = nama ? nama.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "kosong";
+                tautan.download = "kartu-digital-" + namaFile + ".png";
+                tautan.href = canvas.toDataURL("image/png");
+                tautan.click();
+                tampilkanInfo("Kartu berhasil diunduh!", false);
+            }).catch(() => {
+                tampilkanInfo("Gagal membuat gambar kartu.", true);
+            }).finally(() => {
+                tombol.classList.remove("loading");
+            });
+        });
+    </script>
+</body>
+</html>

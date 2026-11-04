@@ -1,0 +1,265 @@
+h1 {
+    color: #8f0555;
+    font-size: 28px;
+    background-color: #f7dfec;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Selector universal */
+* {
+    box-sizing: border-box;
+}
+
+/* Selector elemen */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    padding: 30px 15px;
+}
+
+/* ===== Animasi ===== */
+@keyframes muncul {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes denyut {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.12); }
+}
+
+@keyframes putar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ===== Kartu besar ===== */
+.kartu {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 28px;
+    background-color: white;
+    border: 1px solid #d6e4f5;
+    border-top: 6px solid #007bff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.12);
+    animation: muncul 0.7s ease both;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.kartu:hover {
+    box-shadow: 0 16px 40px rgba(0, 123, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* ===== Fieldset dan legend ===== */
+fieldset {
+    margin: 0 0 20px;
+    padding: 10px 20px 20px;
+    border: 1px solid #dbe4f0;
+    border-radius: 10px;
+    animation: muncul 0.6s ease both;
+}
+
+fieldset:nth-of-type(1) { animation-delay: 0.2s; }
+fieldset:nth-of-type(2) { animation-delay: 0.4s; }
+
+legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Ikon user di samping "Data Pribadi" */
+.ikon-user {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    animation: denyut 2s ease-in-out infinite;
+}
+
+.ikon-user svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Label dan input ===== */
+label {
+    display: block;
+    margin: 14px 0 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Selector class */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/* ===== Tombol ===== */
+.aksi {
+    display: flex;
+    gap: 10px;
+    animation: muncul 0.6s ease 0.6s both;
+}
+
+/* Selector id */
+#tombol-kirim {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+#tombol-kirim:hover {
+    background-color: #0062cc;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.35);
+}
+
+#tombol-kirim:active {
+    transform: scale(0.95);
+}
+
+#tombol-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+#tombol-reset .ikon {
+    display: inline-block;
+    font-size: 18px;
+}
+
+#tombol-reset:hover {
+    background-color: #5a6268;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+#tombol-reset:hover .ikon {
+    animation: putar 0.8s linear infinite;
+}
+
+#tombol-reset:active {
+    transform: scale(0.95);
+}
+/* ===== Kartu digital ===== */
+@keyframes balik {
+    from { opacity: 0; transform: perspective(800px) rotateY(-90deg); }
+    to   { opacity: 1; transform: perspective(800px) rotateY(0deg); }
+}
+
+.kartu-digital {
+    max-width: 420px;
+    margin: 20px auto;
+    background-color: white;
+    border: 1px solid #d6e4f5;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
+    animation: balik 0.8s ease both;
+}
+
+.kartu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.kartu-header small {
+    font-size: 10px;
+    font-weight: normal;
+    letter-spacing: 0;
+}
+
+.kartu-isi {
+    display: flex;
+    gap: 18px;
+    padding: 20px;
+}
+
+.avatar {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background-color: #007bff;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.kartu-data h2 {
+    margin: 0 0 10px;
+    color: #007bff;
+}
+
+.kartu-data p {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.kartu-footer {
+    padding: 10px 20px;
+    background-color: #f4f6f9;
+    color: #777;
+    font-size: 12px;
+    text-align: right;
+}
+
+.kembali {
+    text-align: center;
+}
+
+.kembali a {
+    color: #007bff;
+    text-decoration: none;
+}
