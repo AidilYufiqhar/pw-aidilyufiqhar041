@@ -5,3 +5,5 @@
 .grid {
   margin-top:16px;
 }
+
+.number-tag { flex-basis:42px; width:42px; font-size:9px; font-weight:700; }
