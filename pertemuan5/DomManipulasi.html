@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulasi DOM</title>
+</head>
+<body>
+    <h1 id="judul">Belajar DOM JavaScript</h1>
+    <p id="deskripsi">Ini adalah contoh manipulasi elemen HTML.</p>
+    <button onclick="ubahTeks()">Ubah Teks</button>
+    <button onclick="ubahWarna()">Ubah Warna</button>
+    <button onclick="sembunyikan()">Sembunyikan</button>
+    <script>
+        function ubahTeks() {
+            document.getElementById("judul").textContent =
+                "Selamat Belajar JavaScript!";
+            document.getElementById("deskripsi").innerHTML =
+                "<b>Teks berhasil diubah menggunakan DOM.</b>";
+        }
+        function ubahWarna() {
+            document.querySelector("#judul").style.color = "blue";
+            document.querySelector("#deskripsi").style.backgroundColor =
+                "lightyellow";
+        }
+        function sembunyikan() {
+            document.getElementById("deskripsi").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validasi Formulir</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f1f5f9;
+        }
+
+        .form-box {
+            max-width: 400px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+        <h2>Formulir Pendaftaran</h2>
+
+        <form id="formDaftar" novalidate>
+
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama">
+            <small id="errorNama" class="error"></small>
+
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            <small id="errorEmail" class="error"></small>
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <small id="errorPassword" class="error"></small>
+
+            <button type="submit">Daftar</button>
+        </form>
+
+        <p id="hasil"></p>
+    </div>
+
+    <script>
+        document.getElementById("formDaftar")
+            .addEventListener("submit", function (event) {
+
+                // Mencegah pengiriman formulir
+                event.preventDefault();
+
+                // Mengambil nilai input
+                let nama = document.getElementById("nama").value.trim();
+                let email = document.getElementById("email").value.trim();
+                let password = document.getElementById("password").value;
+
+                // Mengambil elemen pesan kesalahan
+                let errorNama = document.getElementById("errorNama");
+                let errorEmail = document.getElementById("errorEmail");
+                let errorPassword = document.getElementById("errorPassword");
+                let hasil = document.getElementById("hasil");
+
+                // Menghapus pesan sebelumnya
+                errorNama.textContent = "";
+                errorEmail.textContent = "";
+                errorPassword.textContent = "";
+                hasil.textContent = "";
+                hasil.className = "";
+
+                let valid = true;
+
+                // Validasi nama
+                if (nama === "") {
+                    errorNama.textContent = "Nama wajib diisi!";
+                    valid = false;
+                }
+
+                // Validasi email
+                let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (email === "") {
+                    errorEmail.textContent = "Email wajib diisi!";
+                    valid = false;
+                } else if (!polaEmail.test(email)) {
+                    errorEmail.textContent = "Format email tidak valid!";
+                    valid = false;
+                }
+
+                // Validasi password
+                if (password.length < 8) {
+                    errorPassword.textContent =
+                        "Password minimal 8 karakter!";
+                    valid = false;
+                }
+
+                // Hasil validasi
+                if (valid) {
+                    hasil.textContent =
+                        "Validasi berhasil! Data siap diproses.";
+                    hasil.className = "success";
+                }
+            });
+    </script>
+
+</body>
+
+</html>

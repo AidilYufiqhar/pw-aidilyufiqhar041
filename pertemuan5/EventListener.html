@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Event Listener</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        .hasil {
+            background: #e0f2fe;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Belajar Event Listener</h2>
+
+    <!-- Event Click -->
+    <button id="tombol">Klik Saya</button>
+
+    <hr>
+
+    <!-- Event Input -->
+    <label>Masukkan Nama:</label><br>
+    <input type="text" id="nama" placeholder="Ketik nama Anda">
+
+    <p>Nama Anda: <span id="hasilNama">-</span></p>
+
+    <hr>
+
+    <!-- Event Change -->
+    <label>Pilih Jurusan:</label><br>
+
+    <select id="jurusan">
+        <option value="">-- Pilih Jurusan --</option>
+        <option value="Teknik Informatika">Teknik Informatika</option>
+        <option value="Sistem Informasi">Sistem Informasi</option>
+        <option value="Pendidikan Teknologi Informasi">
+            Pendidikan Teknologi Informasi
+        </option>
+    </select>
+
+    <p>Jurusan yang dipilih: <span id="hasilJurusan">-</span></p>
+
+    <script>
+        // EVENT CLICK
+        document.getElementById("tombol")
+            .addEventListener("click", function () {
+                alert("Tombol berhasil diklik!");
+            });
+
+        // EVENT INPUT
+        document.getElementById("nama")
+            .addEventListener("input", function () {
+                document.getElementById("hasilNama").textContent =
+                    this.value;
+            });
+
+        // EVENT CHANGE
+        document.getElementById("jurusan")
+            .addEventListener("change", function () {
+                document.getElementById("hasilJurusan").textContent =
+                    this.value || "-";
+            });
+    </script>
+
+</body>
+
+</html>

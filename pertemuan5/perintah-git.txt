@@ -1,0 +1,26 @@
+cd pw-AidilYufiqhar041
+mkdir pertemuan-05   # lalu salin file ke folder ini
+
+git add pertemuan-05/latjavaint.html
+git commit -m "Tambah latjavaint.html (JavaScript dasar)"
+
+git add pertemuan-05/DomManipulasi.html
+git commit -m "Tambah DomManipulasi.html (manipulasi DOM)"
+
+git add pertemuan-05/EventListener.html
+git commit -m "Tambah EventListener.html (click, input, change)"
+
+git add pertemuan-05/CekKosong.html pertemuan-05/CekPassword.html pertemuan-05/CekEmail.html
+git commit -m "Tambah latihan validasi kosong, password, dan email"
+
+git add pertemuan-05/ValidasiFormulir.html
+git commit -m "Tambah ValidasiFormulir.html (validasi formulir lengkap)"
+
+git add pertemuan-05/PendaftaranTerpadu.html
+git commit -m "Tambah PendaftaranTerpadu.html (gabungan DOM, event, dan validasi)"
+
+# tambahkan isi README-pertemuan-05.md ke README.md, lalu:
+git add README.md
+git commit -m "Update README.md untuk Pertemuan 5"
+
+git push origin main

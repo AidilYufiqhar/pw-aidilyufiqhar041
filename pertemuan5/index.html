@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Terpadu - JavaScript Dasar, DOM, Event, dan Validasi</title>
+
+    <style>
+        :root {
+            --bg1: #eef2ff;
+            --bg2: #e0f2fe;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --soft: #f8fafc;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --danger: #dc2626;
+            --ok: #16a34a;
+        }
+
+        body.gelap {
+            --bg1: #0b1220;
+            --bg2: #111c33;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --border: #334155;
+            --soft: #162033;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            transition: background .3s, color .3s;
+        }
+
+        /* ===== KARTU FORMULIR ===== */
+        .form-box {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, .12);
+            overflow: hidden;
+            transition: background .3s;
+        }
+
+        .form-box.keluar {
+            animation: keluarPutar .7s cubic-bezier(.6, 0, .8, .4) forwards;
+        }
+
+        @keyframes keluarPutar {
+            to {
+                transform: rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .kepala {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            padding: 22px 26px;
+            color: #fff;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        .logo {
+            flex: none;
+            width: 56px;
+            height: 56px;
+            padding: 4px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .18);
+        }
+
+        /* Gambar logo selalu mengikuti kotak .logo, apa pun ukuran aslinya */
+        .logo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .kepala h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .kepala p {
+            margin: 3px 0 0;
+            font-size: 13px;
+            opacity: .9;
+        }
+
+        .badan {
+            padding: 22px 26px 26px;
+        }
+
+        .alat {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: transform .15s, background .2s, box-shadow .2s;
+        }
+
+        button:active {
+            transform: scale(.97);
+        }
+
+        button.kecil {
+            padding: 7px 12px;
+            font-size: 12px;
+            color: var(--text);
+            background: var(--soft);
+            border: 1px solid var(--border);
+        }
+
+        button.kecil:hover {
+            border-color: var(--primary);
+        }
+
+        .info {
+            margin-top: 14px;
+            padding: 12px 14px;
+            font-size: 13px;
+            border-radius: 10px;
+            background: var(--soft);
+            border: 1px dashed var(--border);
+            display: grid;
+            gap: 4px;
+        }
+
+        .info b {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .field {
+            margin-top: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px 12px;
+            font: inherit;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--soft);
+            border: 2px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+        }
+
+        input.salah,
+        select.salah {
+            border-color: var(--danger);
+        }
+
+        input.benar,
+        select.benar {
+            border-color: var(--ok);
+        }
+
+        .error {
+            display: block;
+            min-height: 16px;
+            margin-top: 5px;
+            color: var(--danger);
+            font-size: 12.5px;
+        }
+
+        .baris-pass {
+            display: flex;
+            gap: 8px;
+        }
+
+        .baris-pass button {
+            flex: none;
+        }
+
+        .bar {
+            height: 6px;
+            margin-top: 8px;
+            border-radius: 6px;
+            background: var(--border);
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 6px;
+            transition: width .3s, background .3s;
+        }
+
+        .kekuatan {
+            font-size: 12.5px;
+            margin-top: 5px;
+            min-height: 16px;
+        }
+
+        .baris {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .baris button {
+            flex: 1;
+            padding: 13px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .btn-utama {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, .3);
+        }
+
+        .btn-utama:hover {
+            box-shadow: 0 10px 24px rgba(37, 99, 235, .45);
+        }
+
+        .btn-reset {
+            background: #ef4444;
+        }
+
+        .success {
+            color: var(--ok);
+            font-weight: bold;
+            margin: 14px 0 0;
+        }
+
+        /* ===== HALAMAN SUKSES ===== */
+        .sukses {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 24px;
+            background: radial-gradient(circle at 50% 40%, var(--bg2), var(--bg1));
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .sukses[hidden] {
+            display: none;
+        }
+
+        .sukses.tampil {
+            opacity: 1;
+        }
+
+        #partikel {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sukses-isi {
+            position: relative;
+            max-width: 420px;
+        }
+
+        .lencana {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 26px;
+            transform: scale(0);
+        }
+
+        .sukses.tampil .lencana {
+            animation: masukPutar .9s cubic-bezier(.2, .8, .2, 1) forwards;
+        }
+
+        @keyframes masukPutar {
+            from {
+                transform: rotate(-540deg) scale(0);
+            }
+
+            to {
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        .cincin {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 7px solid rgba(37, 99, 235, .15);
+            border-top-color: var(--primary);
+            animation: putar .8s linear infinite;
+            transition: opacity .25s;
+        }
+
+        @keyframes putar {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .sukses.pop .cincin {
+            opacity: 0;
+        }
+
+        .cakram {
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            box-shadow: 0 14px 36px rgba(34, 197, 94, .5);
+            transform: scale(0);
+        }
+
+        .sukses.pop .cakram {
+            animation: popUp .6s cubic-bezier(.2, 1.4, .4, 1) forwards;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0);
+            }
+
+            60% {
+                transform: scale(1.22);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .gelombang {
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            border: 3px solid #22c55e;
+            opacity: 0;
+        }
+
+        .sukses.pop .gelombang {
+            animation: gelombang 1s ease-out .15s;
+        }
+
+        @keyframes gelombang {
+            from {
+                transform: scale(1);
+                opacity: .8;
+            }
+
+            to {
+                transform: scale(2.1);
+                opacity: 0;
+            }
+        }
+
+        .centang {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tanda {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 4.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 40;
+            stroke-dashoffset: 40;
+        }
+
+        .sukses.pop .tanda {
+            animation: gambar .45s ease-out .25s forwards;
+        }
+
+        @keyframes gambar {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .sukses-teks {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .6s, transform .6s;
+        }
+
+        .sukses.teks .sukses-teks {
+            opacity: 1;
+            transform: none;
+        }
+
+        .sukses h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            letter-spacing: .3px;
+        }
+
+        .sukses p {
+            margin: 0 0 22px;
+            color: var(--muted);
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        .btn-kembali {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, .3);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .lencana,
+            .cakram {
+                transform: scale(1) !important;
+                animation: none !important;
+            }
+
+            .cincin,
+            .gelombang {
+                display: none;
+            }
+
+            .tanda {
+                stroke-dashoffset: 0;
+                animation: none !important;
+            }
+
+            .form-box.keluar {
+                animation: none;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box" id="kotak">
+        <div class="kepala">
+            <div class="logo">
+                <img id="logoImg" src="img/logo.png" alt="Logo">
+                <svg id="logoCadangan" style="display:none" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                    stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 18l6-6-6-6" />
+                    <path d="M8 6l-6 6 6 6" />
+                    <path d="M14 4l-4 16" />
+                </svg>
+            </div>
+            <div>
+                <h2 id="judul">Formulir Pendaftaran</h2>
+                <p id="deskripsi">Pesan validasi muncul langsung saat Anda mengetik.</p>
+            </div>
+        </div>
+
+        <div class="badan">
+            <div class="alat">
+                <button type="button" class="kecil" id="btnTema">Ubah Tema</button>
+                <button type="button" class="kecil" id="btnPratinjau">Sembunyikan Pratinjau</button>
+            </div>
+
+            <!-- Pratinjau langsung (event input + change, DOM textContent) -->
+            <div class="info" id="pratinjau">
+                <div><b>Nama:</b> <span id="hasilNama">-</span></div>
+                <div><b>Email:</b> <span id="hasilEmail">-</span></div>
+                <div><b>Jurusan:</b> <span id="hasilJurusan">-</span></div>
+            </div>
+
+            <form id="formDaftar" novalidate>
+
+                <div class="field">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Ketik nama Anda">
+                    <small id="errorNama" class="error"></small>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="contoh@email.com">
+                    <small id="errorEmail" class="error"></small>
+                </div>
+
+                <div class="field">
+                    <label for="jurusan">Jurusan</label>
+                    <select id="jurusan">
+                        <option value="">-- Pilih Jurusan --</option>
+                        <option value="Teknik Informatika">Teknik Informatika</option>
+                        <option value="Sistem Informasi">Sistem Informasi</option>
+                        <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
+                    </select>
+                    <small id="errorJurusan" class="error"></small>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="baris-pass">
+                        <input type="password" id="password" placeholder="Minimal 8 karakter">
+                        <button type="button" class="kecil" id="btnLihat">Tampilkan</button>
+                    </div>
+                    <div class="bar"><span id="barKekuatan"></span></div>
+                    <div class="kekuatan" id="kekuatan"></div>
+                    <small id="errorPassword" class="error"></small>
+                </div>
+
+                <div class="baris">
+                    <button type="submit" class="btn-utama" id="btnDaftar">Daftar</button>
+                    <button type="button" class="btn-reset" id="btnReset">Reset</button>
+                </div>
+            </form>
+
+            <p id="hasil"></p>
+        </div>
+    </div>
+
+    <!-- HALAMAN SUKSES (muncul setelah validasi berhasil) -->
+    <div class="sukses" id="halamanSukses" hidden>
+        <canvas id="partikel"></canvas>
+        <div class="sukses-isi">
+            <div class="lencana" id="lencana">
+                <div class="cincin"></div>
+                <div class="gelombang"></div>
+                <div class="cakram"></div>
+                <svg class="centang" viewBox="0 0 52 52" aria-hidden="true">
+                    <path class="tanda" d="M15 27 L23 35 L38 18" />
+                </svg>
+            </div>
+            <div class="sukses-teks">
+                <h2 id="teksSukses">Berhasil Mengisi</h2>
+                <p id="detailSukses"></p>
+                <button type="button" class="btn-kembali" id="btnKembali">Isi Formulir Lagi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log("JavaScript berhasil dijalankan!");
+
+        // ===== 1. MEMILIH ELEMEN (getElementById & querySelector) =====
+        const form = document.getElementById("formDaftar");
+        const nama = document.getElementById("nama");
+        const email = document.getElementById("email");
+        const jurusan = document.getElementById("jurusan");
+        const password = document.getElementById("password");
+
+        const errorNama = document.getElementById("errorNama");
+        const errorEmail = document.getElementById("errorEmail");
+        const errorJurusan = document.getElementById("errorJurusan");
+        const errorPassword = document.getElementById("errorPassword");
+        const kekuatan = document.getElementById("kekuatan");
+        const barKekuatan = document.getElementById("barKekuatan");
+        const hasil = document.getElementById("hasil");
+
+        const kotak = document.getElementById("kotak");
+        const halamanSukses = document.getElementById("halamanSukses");
+
+        const polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const kurangGerak = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // ===== LOGO: diambil dari folder img (jalur dicoba berurutan) =====
+        const logoImg = document.getElementById("logoImg");
+        const logoCadangan = document.getElementById("logoCadangan");
+        const daftarLogo = ["img/logo.png", "../img/logo.png"];
+        let urutLogo = 0;
+
+        function logoBerikutnya() {
+            urutLogo++;
+            if (urutLogo < daftarLogo.length) {
+                logoImg.src = daftarLogo[urutLogo];
+            } else {
+                // Semua jalur gagal: tampilkan ikon cadangan
+                logoImg.style.display = "none";
+                logoCadangan.style.display = "block";
+            }
+        }
+
+        // Memangkas ruang kosong (transparan / putih) di tepi gambar, supaya isi logo
+        // memenuhi kotak. Hasilnya lalu diperbesar atau diperkecil otomatis oleh CSS (object-fit: contain).
+        let logoSudahRapi = false;
+
+        function rapikanLogo() {
+            if (logoSudahRapi || logoImg.naturalWidth === 0) return;
+            logoSudahRapi = true;
+            try {
+                let w = logoImg.naturalWidth;
+                let h = logoImg.naturalHeight;
+
+                // Pindai versi kecil gambar agar cepat, walaupun file aslinya besar
+                let skala = Math.min(1, 400 / Math.max(w, h));
+                let sw = Math.max(1, Math.round(w * skala));
+                let sh = Math.max(1, Math.round(h * skala));
+                let scan = document.createElement("canvas");
+                scan.width = sw;
+                scan.height = sh;
+                let c = scan.getContext("2d", { willReadFrequently: true });
+                c.drawImage(logoImg, 0, 0, sw, sh);
+                let data = c.getImageData(0, 0, sw, sh).data;
+
+                let kiri = sw, atas = sh, kanan = -1, bawah = -1;
+                for (let y = 0; y < sh; y++) {
+                    for (let x = 0; x < sw; x++) {
+                        let i = (y * sw + x) * 4;
+                        let kosong = data[i + 3] < 20 ||
+                            (data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245);
+                        if (!kosong) {
+                            if (x < kiri) kiri = x;
+                            if (x > kanan) kanan = x;
+                            if (y < atas) atas = y;
+                            if (y > bawah) bawah = y;
+                        }
+                    }
+                }
+                if (kanan < 0) return; // gambar kosong, biarkan apa adanya
+
+                // Potong pada ukuran asli
+                let sx = Math.max(0, Math.floor(kiri / skala) - 1);
+                let sy = Math.max(0, Math.floor(atas / skala) - 1);
+                let ex = Math.min(w, Math.ceil((kanan + 1) / skala) + 1);
+                let ey = Math.min(h, Math.ceil((bawah + 1) / skala) + 1);
+
+                let hasil = document.createElement("canvas");
+                hasil.width = ex - sx;
+                hasil.height = ey - sy;
+                hasil.getContext("2d").drawImage(logoImg, sx, sy, hasil.width, hasil.height, 0, 0, hasil.width, hasil.height);
+                logoImg.src = hasil.toDataURL("image/png");
+            } catch (e) {
+                // Dibuka lewat file:// membuat browser memblokir pembacaan piksel.
+                // Gambar tetap tampil, hanya tanpa pemangkasan otomatis.
+                console.warn("Pemangkasan logo dilewati:", e.message);
+            }
+        }
+
+        logoImg.addEventListener("error", logoBerikutnya);
+        logoImg.addEventListener("load", rapikanLogo);
+        if (logoImg.complete) {
+            if (logoImg.naturalWidth === 0) {
+                logoBerikutnya();
+            } else {
+                rapikanLogo();
+            }
+        }
+
+        // ===== 2. FUNGSI VALIDASI (if...else) =====
+        // Setiap fungsi mengembalikan true jika valid, dan menampilkan pesan lewat DOM.
+        function tandai(input, pesanEl, pesan) {
+            pesanEl.textContent = pesan;
+            input.classList.toggle("salah", pesan !== "");
+            input.classList.toggle("benar", pesan === "");
+            return pesan === "";
+        }
+
+        function validasiNama() {
+            let nilai = nama.value.trim();
+            if (nilai === "") {
+                return tandai(nama, errorNama, "Nama wajib diisi!");
+            }
+            return tandai(nama, errorNama, "");
+        }
+
+        function validasiEmail() {
+            let nilai = email.value.trim();
+            if (nilai === "") {
+                return tandai(email, errorEmail, "Email wajib diisi!");
+            } else if (!polaEmail.test(nilai)) {
+                return tandai(email, errorEmail, "Format email tidak valid!");
+            }
+            return tandai(email, errorEmail, "");
+        }
+
+        function validasiJurusan() {
+            if (jurusan.value === "") {
+                return tandai(jurusan, errorJurusan, "Jurusan wajib dipilih!");
+            }
+            return tandai(jurusan, errorJurusan, "");
+        }
+
+        function validasiPassword() {
+            if (password.value.length < 8) {
+                return tandai(password, errorPassword, "Password minimal 8 karakter!");
+            }
+            return tandai(password, errorPassword, "");
+        }
+
+        function ukurKekuatan() {
+            let p = password.value;
+            if (p === "") {
+                kekuatan.textContent = "";
+                barKekuatan.style.width = "0";
+                return;
+            }
+            let skor = 0;
+            if (p.length >= 8) skor++;
+            if (/[A-Z]/.test(p) && /[a-z]/.test(p)) skor++;
+            if (/[0-9]/.test(p)) skor++;
+            if (/[^A-Za-z0-9]/.test(p)) skor++;
+
+            let teks = ["Sangat lemah", "Lemah", "Cukup", "Kuat", "Sangat kuat"][skor];
+            let warna = ["#dc2626", "#dc2626", "#f59e0b", "#16a34a", "#16a34a"][skor];
+            kekuatan.textContent = "Kekuatan password: " + teks;
+            kekuatan.style.color = warna;
+            barKekuatan.style.width = (skor / 4 * 100) + "%";
+            barKekuatan.style.background = warna;
+        }
+
+        // ===== 3. EVENT INPUT: pratinjau & validasi langsung =====
+        nama.addEventListener("input", function () {
+            document.getElementById("hasilNama").textContent = this.value || "-";
+            validasiNama();
+        });
+
+        email.addEventListener("input", function () {
+            document.getElementById("hasilEmail").textContent = this.value || "-";
+            validasiEmail();
+        });
+
+        password.addEventListener("input", function () {
+            ukurKekuatan();
+            validasiPassword();
+        });
+
+        // ===== 4. EVENT CHANGE: dropdown jurusan =====
+        jurusan.addEventListener("change", function () {
+            document.getElementById("hasilJurusan").textContent = this.value || "-";
+            validasiJurusan();
+        });
+
+        // ===== 5. EVENT CLICK: tombol-tombol DOM =====
+        // Ubah tema (classList + style.color)
+        document.getElementById("btnTema").addEventListener("click", function () {
+            document.body.classList.toggle("gelap");
+            document.querySelector("#judul").style.color =
+                document.body.classList.contains("gelap") ? "#fde68a" : "#ffffff";
+        });
+
+        // Sembunyikan / tampilkan pratinjau (style.display)
+        document.getElementById("btnPratinjau").addEventListener("click", function () {
+            let pratinjau = document.getElementById("pratinjau");
+            if (pratinjau.style.display === "none") {
+                pratinjau.style.display = "grid";
+                this.textContent = "Sembunyikan Pratinjau";
+            } else {
+                pratinjau.style.display = "none";
+                this.textContent = "Tampilkan Pratinjau";
+            }
+        });
+
+        // Tampilkan / sembunyikan password
+        document.getElementById("btnLihat").addEventListener("click", function () {
+            if (password.type === "password") {
+                password.type = "text";
+                this.textContent = "Sembunyikan";
+            } else {
+                password.type = "password";
+                this.textContent = "Tampilkan";
+            }
+        });
+
+        // Reset formulir
+        function resetForm() {
+            form.reset();
+            [nama, email, jurusan, password].forEach(function (el) {
+                el.classList.remove("salah", "benar");
+            });
+            errorNama.textContent = "";
+            errorEmail.textContent = "";
+            errorJurusan.textContent = "";
+            errorPassword.textContent = "";
+            kekuatan.textContent = "";
+            barKekuatan.style.width = "0";
+            hasil.textContent = "";
+            hasil.className = "";
+            password.type = "password";
+            document.getElementById("btnLihat").textContent = "Tampilkan";
+            document.getElementById("hasilNama").textContent = "-";
+            document.getElementById("hasilEmail").textContent = "-";
+            document.getElementById("hasilJurusan").textContent = "-";
+            document.getElementById("judul").textContent = "Formulir Pendaftaran";
+            document.getElementById("btnDaftar").disabled = false;
+        }
+
+        document.getElementById("btnReset").addEventListener("click", function () {
+            resetForm();
+            console.log("Formulir direset.");
+        });
+
+        // ===== 6. PARTIKEL (canvas) =====
+        const kanvas = document.getElementById("partikel");
+        const ctx = kanvas.getContext("2d");
+        let partikel = [];
+        let animasiId = null;
+
+        function ukuranKanvas() {
+            let dpr = window.devicePixelRatio || 1;
+            kanvas.width = window.innerWidth * dpr;
+            kanvas.height = window.innerHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function ledakan(x, y, jumlah) {
+            let warna = ["#22c55e", "#2563eb", "#7c3aed", "#f59e0b", "#ec4899", "#06b6d4"];
+            for (let i = 0; i < jumlah; i++) {
+                let sudut = Math.random() * Math.PI * 2;
+                let laju = 4 + Math.random() * 8;
+                partikel.push({
+                    x: x, y: y,
+                    vx: Math.cos(sudut) * laju,
+                    vy: Math.sin(sudut) * laju - 2,
+                    ukuran: 3 + Math.random() * 5,
+                    warna: warna[Math.floor(Math.random() * warna.length)],
+                    bulat: Math.random() > 0.4,
+                    rot: Math.random() * Math.PI,
+                    putar: (Math.random() - 0.5) * 0.3,
+                    umur: 0,
+                    maks: 70 + Math.random() * 50
+                });
+            }
+            if (animasiId === null) {
+                animasiId = requestAnimationFrame(gambarPartikel);
+            }
+        }
+
+        function gambarPartikel() {
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            partikel = partikel.filter(function (p) { return p.umur < p.maks; });
+
+            partikel.forEach(function (p) {
+                p.umur++;
+                p.vx *= 0.98;
+                p.vy = p.vy * 0.98 + 0.2;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.rot += p.putar;
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, 1 - p.umur / p.maks);
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rot);
+                ctx.fillStyle = p.warna;
+                if (p.bulat) {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.ukuran / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.fillRect(-p.ukuran / 2, -p.ukuran / 4, p.ukuran, p.ukuran / 2);
+                }
+                ctx.restore();
+            });
+
+            if (partikel.length > 0) {
+                animasiId = requestAnimationFrame(gambarPartikel);
+            } else {
+                animasiId = null;
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // ===== 7. PINDAH KE HALAMAN SUKSES =====
+        let pewaktu = [];
+
+        function jadwal(fungsi, ms) {
+            pewaktu.push(setTimeout(fungsi, ms));
+        }
+
+        function tampilkanSukses() {
+            document.getElementById("btnDaftar").disabled = true;
+            document.getElementById("detailSukses").textContent =
+                "Terima kasih, " + nama.value.trim() + ". Data Anda (" + email.value.trim() +
+                ") telah berhasil divalidasi.";
+
+            // Tahap 1: kartu formulir berputar mengecil lalu hilang
+            kotak.classList.add("keluar");
+
+            jadwal(function () {
+                kotak.style.display = "none";
+                halamanSukses.hidden = false;
+                ukuranKanvas();
+                document.title = "Berhasil Mengisi";
+
+                // Tahap 2: halaman sukses muncul, lencana berputar masuk
+                requestAnimationFrame(function () {
+                    halamanSukses.classList.add("tampil");
+                });
+            }, kurangGerak ? 0 : 700);
+
+            // Tahap 3: lencana centang pop up + ledakan partikel
+            jadwal(function () {
+                halamanSukses.classList.add("pop");
+                if (!kurangGerak) {
+                    let r = document.getElementById("lencana").getBoundingClientRect();
+                    let x = r.left + r.width / 2;
+                    let y = r.top + r.height / 2;
+                    ledakan(x, y, 90);
+                    jadwal(function () { ledakan(x, y, 50); }, 250);
+                }
+            }, kurangGerak ? 50 : 700 + 1000);
+
+            // Tahap 4: tulisan "Berhasil Mengisi"
+            jadwal(function () {
+                halamanSukses.classList.add("teks");
+            }, kurangGerak ? 100 : 700 + 1000 + 600);
+        }
+
+        // Kembali ke formulir
+        document.getElementById("btnKembali").addEventListener("click", function () {
+            pewaktu.forEach(clearTimeout);
+            pewaktu = [];
+            partikel = [];
+            halamanSukses.classList.remove("tampil", "pop", "teks");
+            halamanSukses.hidden = true;
+            kotak.classList.remove("keluar");
+            kotak.style.display = "";
+            document.title = "Pendaftaran Terpadu - JavaScript Dasar, DOM, Event, dan Validasi";
+            resetForm();
+        });
+
+        window.addEventListener("resize", function () {
+            if (!halamanSukses.hidden) {
+                ukuranKanvas();
+            }
+        });
+
+        // ===== 8. EVENT SUBMIT: validasi akhir =====
+        form.addEventListener("submit", function (event) {
+            // Mencegah pengiriman formulir
+            event.preventDefault();
+
+            hasil.textContent = "";
+            hasil.className = "";
+
+            // Jalankan semua validasi (tanpa berhenti di yang pertama gagal)
+            let validNama = validasiNama();
+            let validEmail = validasiEmail();
+            let validJurusan = validasiJurusan();
+            let validPassword = validasiPassword();
+
+            if (validNama && validEmail && validJurusan && validPassword) {
+                // innerHTML hanya untuk tag buatan sendiri; data pengguna selalu lewat textContent
+                hasil.innerHTML = "<b>Validasi berhasil! Data siap diproses.</b>";
+                hasil.className = "success";
+                console.log("Data valid:", nama.value.trim(), email.value.trim(), jurusan.value);
+                tampilkanSukses();
+            } else {
+                console.log("Validasi gagal, periksa kembali isian formulir.");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

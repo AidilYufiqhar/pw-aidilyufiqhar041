@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daftar Member – BF Comunitas</title>
+  <link rel="icon" href="img/logo/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html#beranda" class="logo">
+      <img src="img/logo/logo.png" alt="Logo BF Comunitas" class="logo-img">
+      <span class="logo-text">BF Comunitas</span>
+    </a>
+
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="hamburger" aria-label="Buka menu"><span></span><span></span><span></span></label>
+
+    <nav class="nav" aria-label="Menu utama">
+      <ul>
+        <li><a href="index.html#beranda">Beranda</a></li>
+        <li><a href="index.html#tentang">Tentang Kami</a></li>
+        <li><a href="index.html#layanan">Layanan</a></li>
+        <li><a href="index.html#galeri">Galeri</a></li>
+        <li><a href="index.html#kontak">Kontak</a></li>
+        <li><a href="index.html#buku-tamu">Buku Tamu</a></li>
+        <li><a href="member.html" class="aktif" aria-current="page">Daftar Member</a></li>
+        <li><a href="kartu.html">Kartu Member</a></li>
+        <li><a href="pesan.html">Pesan Terkirim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="container">
+      <h1>Daftar Member</h1>
+      <p id="jumlah-member">Memuat data…</p>
+    </div>
+  </section>
+
+  <section class="section section-kecil">
+    <div class="container">
+      <form class="cari" role="search" onsubmit="return false">
+        <label for="q" class="sr-only">Cari member</label>
+        <input type="search" id="q" maxlength="60" placeholder="Cari nama, email, asal, atau nomor member (BF-0001)">
+      </form>
+
+      <div class="tabel-bungkus" id="tabel-bungkus" hidden>
+        <table class="tabel">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Member</th>
+              <th scope="col">Asal / Instansi</th>
+              <th scope="col">Subjek dan pesan</th>
+              <th scope="col">Kunjungan</th>
+              <th scope="col"><span class="sr-only">Kartu</span></th>
+            </tr>
+          </thead>
+          <tbody id="isi-tabel"></tbody>
+        </table>
+      </div>
+
+      <div class="kosong" id="kosong" hidden>
+        <h2 id="kosong-judul">Belum ada member</h2>
+        <p id="kosong-teks">Jadilah yang pertama bergabung lewat buku tamu.</p>
+        <a class="btn btn-primary" href="index.html#buku-tamu">Isi buku tamu</a>
+      </div>
+
+      <noscript><p class="redup">Daftar member membutuhkan JavaScript aktif di browser.</p></noscript>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="img/logo/logo.png" alt="" class="footer-logo">
+      <div>
+        <p class="footer-name">BF Comunitas</p>
+        <p class="footer-copy">&copy; 2026 BF Comunitas. Seluruh hak dilindungi.</p>
+      </div>
+    </div>
+    <ul class="social">
+      <li><a href="https://www.instagram.com/thefrims/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://wa.me/6283133924729" target="_blank" rel="noopener">WhatsApp</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- JavaScript hanya untuk fitur tambahan (simpan data di browser, daftar member, kartu).
+     Halaman tetap tampil dan form tetap bisa dikirim tanpa skrip ini. -->
+<script src="assets/js/app.js"></script>
+</body>
+</html>
